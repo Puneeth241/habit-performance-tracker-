@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Habit Performance Tracker</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      width: 420px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #5a67d8;
+    }
+
+    .output {
+      margin-top: 20px;
+      background: #f1f3f6;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Habit Performance Tracker</h1>
+
+    <h3>Add Habit</h3>
+    <input id="habitName" placeholder="Enter habit" />
+    <button onclick="addHabit()">Add Habit</button>
+
+    <h3>Log Performance</h3>
+    <input id="habitId" placeholder="Habit ID" />
+    <input id="score" placeholder="Score (1-10)" />
+    <button onclick="addPerformance()">Log Performance</button>
+
+    <h3>Insights</h3>
+    <button onclick="getInsights()">View Insights</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    const API = "http://localhost:5000";
+
+    async function addHabit() {
+      const name = document.getElementById("habitName").value;
+
+      const res = await fetch(`${API}/habits`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").innerText =
+        "Habit Added:\n" + JSON.stringify(data, null, 2);
+    }
+
+    async function addPerformance() {
+      const habitId = document.getElementById("habitId").value;
+      const score = document.getElementById("score").value;
+
+      const res = await fetch(`${API}/log`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ habitId, score })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").innerText =
+        "Performance Logged:\n" + JSON.stringify(data, null, 2);
+    }
+
+    async function getInsights() {
+      const res = await fetch(`${API}/insights`);
+      const data = await res.json();
+
+      document.getElementById("output").innerText =
+        "Insights:\n" + JSON.stringify(data, null, 2);
+    }
+  </script>
+
+</body>
+</html>

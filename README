@@ -1,0 +1,31 @@
+# Habit Performance Tracker
+
+## Description
+This project tracks daily habits and analyzes how they impact performance.
+Instead of just tracking streaks, it focuses on understanding whether a habit
+actually improves productivity.
+
+## Features
+- Add habits
+- Log daily performance (1–10 scale)
+- Analyze performance trends
+- Generate insights based on habit data
+
+## Tech Stack
+- Backend: Node.js, Express
+- Frontend: HTML, CSS, JavaScript
+- Data Storage: In-memory (for simplicity)
+
+## How It Works
+1. User creates a habit.
+2. User logs daily performance for that habit.
+3. System analyzes data and provides insights.
+
+## API Endpoints
+- POST /habits → Create habit
+- GET /habits → Get all habits
+- POST /log → Add performance log
+- GET /insights → View performance insights
+
+## How to Run
+1. Navigate to the server folder:
