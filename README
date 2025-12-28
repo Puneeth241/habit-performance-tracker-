@@ -29,3 +29,8 @@ actually improves productivity.
 
 ## How to Run
 1. Navigate to the server folder:
+
+## Note
+Due to limited time, the project focuses on backend logic and clarity rather than UI polish.
+The structure is designed to be easily extendable.
+
